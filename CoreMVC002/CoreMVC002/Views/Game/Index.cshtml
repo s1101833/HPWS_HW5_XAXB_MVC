@@ -2,14 +2,48 @@
 
 <h2>1A2B猜數字遊戲</h2>
 
-@using (Html.BeginForm("Guess", "Game", FormMethod.Post))
+    
+@if (Model.IsGameOver())
 {
-    <label for="guess">請輸入你的猜測：</label>
-    <input type="text" id="guess" name="Guess" value="@Model.Guess" />
-    <input type="submit" value="猜！" />
+    <a asp-controller="GuessNumber" asp-action="Index">
+        <input type="button" value="重玩" />
+    </a>
 }
+else
+{
+    @using (Html.BeginForm("Guess", "Game", FormMethod.Post))
+    {
+        <label for="guess">請輸入你的猜測：</label>
+        <input type="text" id="guess" name="Guess" value="" />
+        <input type="submit" value="猜！" />
+    }
+}
+    
+
 
 @if (!string.IsNullOrEmpty(Model.Result))
 {
-    <p>猜測結果：@Model.Result</p>
+    <div>猜測結果：@Model.Result</div>
 }
+
+@{
+    string[] records = Model.Records.Split(',');
+    if (Model.IsGameOver())
+    {
+        int guessCount = records.Length - 1;
+
+        <p style="color: red; font-weight: bold">
+            答對了！共猜了 @guessCount 次
+        </p>
+    }
+}
+
+
+<p>
+@{
+    foreach (var record in records)
+    {
+        @record<br />
+    }
+}
+</p>
