@@ -1,2 +1,2 @@
-# CoreMVClab0312
-## C# MVC Example of XAXB Game 
+###### CoreMVClab0312
+# C# MVC Example of XAXB Game 
