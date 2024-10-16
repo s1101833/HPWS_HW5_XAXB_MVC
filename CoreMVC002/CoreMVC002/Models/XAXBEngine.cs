@@ -1,46 +1,32 @@
 ﻿namespace CoreMVC002.Models
 {
+    public class Record
+    {
+        public string Guess { get; set; }
+        public string Result { get; set; }
+        public Record(string guess, string result)
+        {
+            Guess = guess;
+            Result = result;
+        }
+    }
     public class XAXBEngine
     {
 
         public string Secret { get; set; }
         public string Guess { get; set; }
         public string Result { get; set; }
-        public string Records { get; set; }
+        public List<Record> Records { get; set; }
 
         public XAXBEngine()
         {
-            // TODO 0 - randomly 
-            //bool[] numbers = { false, false, false, false, false, false, false, false, false, false };
-            //string randomSecret = "";
-            //var rand = new Random();
-
-            //int randInt = rand.Next(0, 10);
-            //numbers[randInt] = true;
-            //randomSecret += randInt.ToString();
-
-            //for (int i = 1; i < 4; i++)
-            //{
-            //    randInt = rand.Next(0, 10);
-
-            //    while (numbers[randInt])
-            //    {
-            //        if (++randInt >= 10)
-            //        {
-            //            randInt = 0;
-            //        }
-            //    }
-            //    numbers[randInt] = true;
-            //    randomSecret += randInt.ToString();
-            //}
-
             string randomSecret = "1234";
 
             //
             Secret = randomSecret;
             Guess = null;
             Result = null;
-            Records = "";
+            Records = new List<Record>();
         }
 
         public XAXBEngine(string secretNumber)
@@ -48,7 +34,7 @@
             Secret = secretNumber;
             Guess = null;
             Result = null;
-            Records = "";
+            Records = new List<Record>();
         }
         //
         public int numOfA(string guessNumber)

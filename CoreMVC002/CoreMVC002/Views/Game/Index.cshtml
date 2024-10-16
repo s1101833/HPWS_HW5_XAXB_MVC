@@ -1,7 +1,6 @@
 ﻿@model XAXBEngine
 
 <h2>1A2B猜數字遊戲</h2>
-
     
 @if (Model.IsGameOver())
 {
@@ -27,23 +26,21 @@ else
 }
 
 @{
-    string[] records = Model.Records.Split(',');
+    
     if (Model.IsGameOver())
     {
-        int guessCount = records.Length - 1;
-
         <p style="color: red; font-weight: bold">
-            答對了！共猜了 @guessCount 次
+            答對了！共猜了 @Model.Records.Count 次
         </p>
     }
 }
 
 
-<p>
+<div>
 @{
-    foreach (var record in records)
+    foreach (var record in @Model.Records)
     {
-        @record<br />
+            <span>@record.Guess: @record.Result</span><br>
     }
 }
-</p>
+</div>

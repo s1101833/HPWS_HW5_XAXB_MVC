@@ -9,6 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreMVC002.Controllers
 {
+    public static class GameState
+    {
+        public static List<Record> Records { get; set; } = new List<Record>();
+    }
+
     public class GameController : Controller
     {
         [HttpGet]
@@ -24,7 +29,7 @@ namespace CoreMVC002.Controllers
             //Console.WriteLine($"Gen num {secretNumber}");
             var model = new XAXBEngine(secretNumber);
 
-            TempData["records"] = "";
+            GameState.Records = new List<Record>();
 
             // 使用強型別
             return View(model);
@@ -39,10 +44,8 @@ namespace CoreMVC002.Controllers
             // 檢查猜測結果
             model.Result = GetGuessResult(model);
 
-            model.Records = TempData["records"] as string;
-            model.Records += $"{model.Guess}: {model.Result},";
-            TempData["records"] = model.Records;
-            TempData.Keep("records");
+            GameState.Records.Add(new Record(model.Guess, model.Result));
+            model.Records = GameState.Records;
 
             //Console.WriteLine($"S={model.Secret}, G={model.Guess}, R={model.Result}");
             //
